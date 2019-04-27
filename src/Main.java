@@ -13,11 +13,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String str = "void main(){" + "\n" +
                 "   int a = 2 + 7;" + "\n" +
-                "   printf('true');" + "\n" +
+                "   printf(a);" + "\n" +
                 "   a = 3-1;" + "\n" +
                 "   printf(a);" + "\n" +
-                "   g = 3;" + "\n" +
-                "   " + "\n" +
+                "   a = 3 + g;" + "\n" +
                 "   int b = 2;" + "\n" +
                 "   printf(b);" + "\n" +
                 "   if (b <= 1) {" + "\n" +
@@ -25,9 +24,6 @@ public class Main {
                 "       printf(b);" + "\n" +
                 "   } else {" + "\n" +
                 "       printf('false if');" + "\n" +
-                "   }" + "\n" +
-                "   if (a == 4) {" + "\n" +
-                "       cout << 111;" + "\n" +
                 "   }" + "\n" +
                 "}";
         System.out.println(str);

@@ -21,9 +21,10 @@ public class MyKek extends CPPBaseVisitor<Elem>  {
         return super.visitSimpledeclaration(ctx);
     }
 
+    // if else
     @Override
     public Elem visitSelectionstatement(CPPParser.SelectionstatementContext ctx) {
-        if( true ) {
+        if( DEBUG ) {
             System.out.println("visitSelectionstatement");
             for (int i = 0; i < ctx.children.size(); i++) {
                 String tmp = ctx.getChild(i).getText();
@@ -55,8 +56,11 @@ public class MyKek extends CPPBaseVisitor<Elem>  {
             System.out.println("В if творится какая то грязь");
             System.exit(1);
         }
-        return super.visitSelectionstatement(ctx);
+        // Чтобы мы не обработали заново true false, делаем так
+        return new Elem(TypeLexem.VOID,"");
+        //return super.visitSelectionstatement(ctx);
     }
+
     // >= <= > <
     @Override
     public Elem visitRelationalexpression(CPPParser.RelationalexpressionContext ctx) {
@@ -211,12 +215,14 @@ public class MyKek extends CPPBaseVisitor<Elem>  {
             String str = ctx.getChild(2).getText();
             Elem elem = null;
             if( str.charAt(0) == '\'' && str.charAt(str.length()-1) == '\'' ){
-                elem = new Elem(TypeLexem.INT, str);
+                elem = new Elem(TypeLexem.INT, str.substring(1,str.length()-1));
             }else{
                 elem = super.visit(ctx.getChild(2));
-
             }
-            System.out.println("printf = " + elem.getText() + "//////////////////////////////////////////////");
+            if( elem != null)
+                System.out.println("printf = " + elem.getText() + "//////////////////////////////////////////////");
+            else
+                System.out.println("переменная '" + str + "' не объявлена ранее");
         }
 
         return super.visitPostfixexpression(ctx);
@@ -236,6 +242,9 @@ public class MyKek extends CPPBaseVisitor<Elem>  {
         if( ctx.getChildCount() == 1){
             if( this.variables.get(ctx.getChild(0).getText()) != null){
                 return this.variables.get(ctx.getChild(0).getText());
+            }
+            else {
+                return null;
             }
         }
 
