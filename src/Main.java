@@ -16,7 +16,6 @@ public class Main {
                 "   printf(a);" + "\n" +
                 "   a = 3-1;" + "\n" +
                 "   printf(a);" + "\n" +
-                "   a = 3 + g;" + "\n" +
                 "   int b = 2;" + "\n" +
                 "   printf(b);" + "\n" +
                 "   if (b <= 1) {" + "\n" +
