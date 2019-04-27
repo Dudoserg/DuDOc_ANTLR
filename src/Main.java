@@ -18,9 +18,9 @@ public class Main {
                 "   printf(a);" + "\n" +
                 "   g = 3;" + "\n" +
                 "   " + "\n" +
-                "   int b = 0;" + "\n" +
+                "   int b = 2;" + "\n" +
                 "   printf(b);" + "\n" +
-                "   if (b >= 1) {" + "\n" +
+                "   if (b <= 1) {" + "\n" +
                 "       printf('true if');" + "\n" +
                 "       printf(b);" + "\n" +
                 "   } else {" + "\n" +

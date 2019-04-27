@@ -44,9 +44,11 @@ public class MyKek extends CPPBaseVisitor<Elem>  {
                 if( condition.getText().equals("1")){
                     // true
                     super.visit(ctx.getChild(4));
+                    System.out.println();
                 }else{
                     //false
                     super.visit(ctx.getChild(6));
+                    System.out.println();
                 }
             }
         } catch (Exception e) {
@@ -55,10 +57,10 @@ public class MyKek extends CPPBaseVisitor<Elem>  {
         }
         return super.visitSelectionstatement(ctx);
     }
-
+    // >= <= > <
     @Override
     public Elem visitRelationalexpression(CPPParser.RelationalexpressionContext ctx) {
-        if( true ) {
+        if( DEBUG ) {
             System.out.println("visitRelationalexpression");
             for (int i = 0; i < ctx.children.size(); i++) {
                 String tmp = ctx.getChild(i).getText();
@@ -74,25 +76,25 @@ public class MyKek extends CPPBaseVisitor<Elem>  {
             Elem first = super.visit(ctx.getChild(0));
             Elem second = super.visit(ctx.getChild(2));
             if (ctx.getChild(1).getText().equals(">=")) {
-                if (first.equal(second)) {
+                if (first.moreEqual(second)) {
                     return trueElem;
                 } else {
                     return falseElem;
                 }
             } else if (ctx.getChild(1).getText().equals("<=")) {
-                if (first.notEqual(second)) {
+                if (first.lessEqual(second)) {
                     return trueElem;
                 } else {
                     return falseElem;
                 }
             }else if (ctx.getChild(1).getText().equals(">")) {
-                if (first.notEqual(second)) {
+                if (first.more(second)) {
                     return trueElem;
                 } else {
                     return falseElem;
                 }
             }else if (ctx.getChild(1).getText().equals("<")) {
-                if (first.notEqual(second)) {
+                if (first.less(second)) {
                     return trueElem;
                 } else {
                     return falseElem;
