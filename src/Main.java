@@ -13,8 +13,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String str = "void main(){" +
                 "   int a = 2 + 7;" +
-                "   cout << a;" +
-                "   a = 3;" +
+                "   printf(a);" +
+                "   a = 3-1;" +
+                "   printf(a);" +
                 "   cout << a;" +
                 "   g = 3;" +
                 "   " +

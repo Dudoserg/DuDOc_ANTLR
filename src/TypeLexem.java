@@ -1,3 +1,4 @@
 public enum  TypeLexem {
-    INT
+    INT,
+    DOUBLE
 }

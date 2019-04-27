@@ -10,12 +10,43 @@ public class Elem {
     }
 
     public Elem add(Elem elem){
-        int first = Integer.parseInt(this.text);
-        int second = Integer.parseInt(elem.getText());
-//        TypeLexem typeLexem =
+        return this.add_sub(elem,1);
+    }
+    public Elem sub(Elem elem){
+        return this.add_sub(elem,-1);
     }
 
+    private Elem add_sub(Elem elem, int sign){
+        TypeLexem first_type = this.getTypeLexeme();
+        TypeLexem second_type = elem.getTypeLexeme();
 
+        if( first_type == TypeLexem.INT){
+            int first = Integer.parseInt(this.text);
+            if(second_type == TypeLexem.INT){
+                // INT INT
+                int second = Integer.parseInt(elem.getText());
+                return new Elem(TypeLexem.INT,  String.valueOf(first + second * sign));
+            }else {
+                // INT DOUBLE
+                double second = Double.parseDouble(elem.getText());
+                return new Elem(TypeLexem.DOUBLE, String.valueOf(first + second * sign));
+            }
+
+        }else {
+            double first = Double.parseDouble(this.text);
+            if(second_type == TypeLexem.INT){
+                // DOUBLE INT
+                int second = Integer.parseInt(elem.getText());
+                return new Elem(TypeLexem.DOUBLE,  String.valueOf(first + second * sign));
+            }else {
+                // DOUBLE DOUBLE
+                double second = Double.parseDouble(elem.getText());
+                return new Elem(TypeLexem.DOUBLE,  String.valueOf(first + second * sign));
+            }
+        }
+    }
+
+///////////////////////////////////////////////////////////////////////////
     public TypeLexem getTypeLexeme() {
         return typeLexeme;
     }
