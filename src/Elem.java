@@ -9,6 +9,68 @@ public class Elem {
         this.text = text;
     }
 
+    public boolean equal(Elem elem){
+        TypeLexem first_type = this.getTypeLexeme();
+        TypeLexem second_type = elem.getTypeLexeme();
+
+        if( first_type == TypeLexem.INT){
+            int first = Integer.parseInt(this.text);
+            if(second_type == TypeLexem.INT){
+                // INT INT
+                int second = Integer.parseInt(elem.getText());
+                return first == second;
+            }else {
+                // INT DOUBLE
+                double second = Double.parseDouble(elem.getText());
+                return first == second;
+            }
+
+        }else {
+            double first = Double.parseDouble(this.text);
+            if(second_type == TypeLexem.INT){
+                // DOUBLE INT
+                int second = Integer.parseInt(elem.getText());
+                return first == second;
+            }else {
+                // DOUBLE DOUBLE
+                double second = Double.parseDouble(elem.getText());
+                return first == second;
+            }
+        }
+    }
+
+    public boolean notEqual(Elem elem){
+        TypeLexem first_type = this.getTypeLexeme();
+        TypeLexem second_type = elem.getTypeLexeme();
+
+        if( first_type == TypeLexem.INT){
+            int first = Integer.parseInt(this.text);
+            if(second_type == TypeLexem.INT){
+                // INT INT
+                int second = Integer.parseInt(elem.getText());
+                return first != second;
+            }else {
+                // INT DOUBLE
+                double second = Double.parseDouble(elem.getText());
+                return first != second;
+            }
+
+        }else {
+            double first = Double.parseDouble(this.text);
+            if(second_type == TypeLexem.INT){
+                // DOUBLE INT
+                int second = Integer.parseInt(elem.getText());
+                return first != second;
+            }else {
+                // DOUBLE DOUBLE
+                double second = Double.parseDouble(elem.getText());
+                return first != second;
+            }
+        }
+    }
+
+    public boolean
+////////////////////////////////////////////////////////////////////
     public Elem add(Elem elem){
         return this.add_sub(elem,1);
     }

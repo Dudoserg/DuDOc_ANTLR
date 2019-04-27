@@ -11,26 +11,26 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        String str = "void main(){" +
-                "   int a = 2 + 7;" +
-                "   printf(a);" +
-                "   a = 3-1;" +
-                "   printf(a);" +
-                "   cout << a;" +
-                "   g = 3;" +
-                "   " +
-                "   int b = 0;" +
-                "   if (b < 1) {" +
-                "       cout << 100 * 2;" +
-                "       a = 4;" +
-                "   } else {" +
-                "       cout << 200 / 3;" +
-                "   }" +
-                "   if (a == 4) {" +
-                "       cout << 111;" +
-                "   }" +
+        String str = "void main(){" + "\n" +
+                "   int a = 2 + 7;" + "\n" +
+                "   printf('true');" + "\n" +
+                "   a = 3-1;" + "\n" +
+                "   printf(a);" + "\n" +
+                "   g = 3;" + "\n" +
+                "   " + "\n" +
+                "   int b = 0;" + "\n" +
+                "   printf(b);" + "\n" +
+                "   if (b >= 1) {" + "\n" +
+                "       printf('true if');" + "\n" +
+                "       printf(b);" + "\n" +
+                "   } else {" + "\n" +
+                "       printf('false if');" + "\n" +
+                "   }" + "\n" +
+                "   if (a == 4) {" + "\n" +
+                "       cout << 111;" + "\n" +
+                "   }" + "\n" +
                 "}";
-
+        System.out.println(str);
         CPPLexer lexer = new CPPLexer(CharStreams.fromString(str));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CPPParser parser = new CPPParser(tokens);

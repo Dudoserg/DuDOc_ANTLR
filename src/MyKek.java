@@ -21,6 +21,122 @@ public class MyKek extends CPPBaseVisitor<Elem>  {
         return super.visitSimpledeclaration(ctx);
     }
 
+    @Override
+    public Elem visitSelectionstatement(CPPParser.SelectionstatementContext ctx) {
+        if( true ) {
+            System.out.println("visitSelectionstatement");
+            for (int i = 0; i < ctx.children.size(); i++) {
+                String tmp = ctx.getChild(i).getText();
+                System.out.println(tmp);
+            }
+            System.out.println("#########################");
+        }
+        int count = ctx.getChildCount();
+
+        try {
+            if(count == 5){
+                // if
+                Elem condition = super.visit(ctx.getChild(2)); // посещаем условие
+            }else if(count == 7){
+                //if else
+                Elem condition = super.visit(ctx.getChild(2)); // посещаем условие
+                System.out.println();
+                if( condition.getText().equals("1")){
+                    // true
+                    super.visit(ctx.getChild(4));
+                }else{
+                    //false
+                    super.visit(ctx.getChild(6));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("В if творится какая то грязь");
+            System.exit(1);
+        }
+        return super.visitSelectionstatement(ctx);
+    }
+
+    @Override
+    public Elem visitRelationalexpression(CPPParser.RelationalexpressionContext ctx) {
+        if( true ) {
+            System.out.println("visitRelationalexpression");
+            for (int i = 0; i < ctx.children.size(); i++) {
+                String tmp = ctx.getChild(i).getText();
+                System.out.println(tmp);
+            }
+            System.out.println("#########################");
+        }
+
+        // 3 если сравнение
+        if( ctx.getChildCount() == 3){
+            Elem trueElem = new Elem(TypeLexem.INT, "1");
+            Elem falseElem = new Elem(TypeLexem.INT, "0");
+            Elem first = super.visit(ctx.getChild(0));
+            Elem second = super.visit(ctx.getChild(2));
+            if (ctx.getChild(1).getText().equals(">=")) {
+                if (first.equal(second)) {
+                    return trueElem;
+                } else {
+                    return falseElem;
+                }
+            } else if (ctx.getChild(1).getText().equals("<=")) {
+                if (first.notEqual(second)) {
+                    return trueElem;
+                } else {
+                    return falseElem;
+                }
+            }else if (ctx.getChild(1).getText().equals(">")) {
+                if (first.notEqual(second)) {
+                    return trueElem;
+                } else {
+                    return falseElem;
+                }
+            }else if (ctx.getChild(1).getText().equals("<")) {
+                if (first.notEqual(second)) {
+                    return trueElem;
+                } else {
+                    return falseElem;
+                }
+            }
+        }
+
+        return super.visitRelationalexpression(ctx);
+    }
+
+    // ==
+    @Override
+    public Elem visitEqualityexpression(CPPParser.EqualityexpressionContext ctx) {
+        if( DEBUG ) {
+            System.out.println("visitEqualityexpression");
+            for (int i = 0; i < ctx.children.size(); i++) {
+                String tmp = ctx.getChild(i).getText();
+                System.out.println(tmp);
+            }
+            System.out.println("#########################");
+        }
+        // 3 если сравнение
+        if( ctx.getChildCount() == 3){
+            Elem trueElem = new Elem(TypeLexem.INT, "1");
+            Elem falseElem = new Elem(TypeLexem.INT, "0");
+            Elem first = super.visit(ctx.getChild(0));
+            Elem second = super.visit(ctx.getChild(2));
+            if (ctx.getChild(1).getText().equals("==")) {
+                if (first.equal(second)) {
+                    return trueElem;
+                } else {
+                    return falseElem;
+                }
+            } else if (ctx.getChild(1).getText().equals("!=")) {
+                if (first.notEqual(second)) {
+                    return trueElem;
+                } else {
+                    return falseElem;
+                }
+            }
+        }
+        return super.visitEqualityexpression(ctx);
+    }
+
     // a = 2;
     @Override
     public Elem visitAssignmentexpression(CPPParser.AssignmentexpressionContext ctx) {
@@ -78,8 +194,7 @@ public class MyKek extends CPPBaseVisitor<Elem>  {
         return super.visitInitdeclarator(ctx);
     }
 
-
-    // main print...
+    // main printf...
     @Override
     public Elem visitPostfixexpression(CPPParser.PostfixexpressionContext ctx) {
         if( DEBUG ) {
@@ -91,7 +206,14 @@ public class MyKek extends CPPBaseVisitor<Elem>  {
             System.out.println("#########################");
         }
         if( ctx.getChildCount() > 1 && ctx.getChild(0).getText().equals("printf")){
-            Elem elem = super.visit(ctx.getChild(2));
+            String str = ctx.getChild(2).getText();
+            Elem elem = null;
+            if( str.charAt(0) == '\'' && str.charAt(str.length()-1) == '\'' ){
+                elem = new Elem(TypeLexem.INT, str);
+            }else{
+                elem = super.visit(ctx.getChild(2));
+
+            }
             System.out.println("printf = " + elem.getText() + "//////////////////////////////////////////////");
         }
 
