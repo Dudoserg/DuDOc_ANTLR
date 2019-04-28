@@ -203,8 +203,8 @@ public class MyKek extends CPPBaseVisitor<Elem>    {
         }
         Elem elem = null;
         if(ctx.getChildCount() > 1){
-             elem = super.visit(ctx.getChild(1));
-             value = elem.getText();
+            elem = super.visit(ctx.getChild(1));
+            value = elem.getText();
         }
         String name = ctx.getChild(0).getText();
         if(this.variables.get(name) == null){
@@ -239,7 +239,8 @@ public class MyKek extends CPPBaseVisitor<Elem>    {
                 elem = super.visit(ctx.getChild(2));
             }
             if( elem != null)
-                System.out.println("printf = " + elem.getText() + "//////////////////////////////////////////////");
+//                System.out.println("printf = " + elem.getText() + "//////////////////////////////////////////////");
+                System.out.println( elem.getText() );
             else
                 System.out.println("переменная '" + str + "' не объявлена ранее");
         }
@@ -324,10 +325,12 @@ public class MyKek extends CPPBaseVisitor<Elem>    {
             Elem second = super.visit(ctx.getChild(2));
             switch (ctx.getChild(1).getText()){
                 case "*":{
-                    break;
+                    return first.star(second);
+
                 }
                 case "/":{
-                    break;
+                    return first.division(second);
+
                 }
             }
             System.out.println();
