@@ -1,11 +1,28 @@
+import javafx.fxml.Initializable;
+
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
-public class MyKek extends CPPBaseVisitor<Elem>  {
+public class MyKek extends CPPBaseVisitor<Elem>    {
+
+    boolean flagMulti = false;
+
     public static boolean DEBUG = false;
 
     private Map<String, Elem> variables = new HashMap<String, Elem>();
+    private Map<String, Elem> functions = new HashMap<String, Elem>();
+
+
+
+    @Override
+    public Elem visitTranslationunit(CPPParser.TranslationunitContext ctx) {
+        functions.put("printf", new Elem(TypeLexem.VOID,"printf"));
+
+        return super.visitTranslationunit(ctx);
+    }
 
     @Override
     public Elem visitSimpledeclaration(CPPParser.SimpledeclarationContext ctx) {
@@ -203,6 +220,8 @@ public class MyKek extends CPPBaseVisitor<Elem>  {
     // main printf...
     @Override
     public Elem visitPostfixexpression(CPPParser.PostfixexpressionContext ctx) {
+        if( ctx.getChildCount() == 4)
+            flagMulti = false;
         if( DEBUG ) {
             System.out.println("visitPostfixexpression");
             for (int i = 0; i < ctx.children.size(); i++) {
@@ -244,7 +263,10 @@ public class MyKek extends CPPBaseVisitor<Elem>  {
                 return this.variables.get(ctx.getChild(0).getText());
             }
             else {
-                return null;
+                if(flagMulti && this.functions.get(ctx.getChild(0).getText()) == null ){
+                    throw new NullPointerException("Переменная ранее не определена");
+                }
+
             }
         }
 
@@ -285,6 +307,7 @@ public class MyKek extends CPPBaseVisitor<Elem>  {
     // * /
     @Override
     public Elem visitMultiplicativeexpression(CPPParser.MultiplicativeexpressionContext ctx) {
+        flagMulti = true;
         if( DEBUG ){
             for(int i = 0 ; i < ctx.children.size(); i++){
                 String tmp = ctx.getChild(i).getText();
@@ -332,4 +355,6 @@ public class MyKek extends CPPBaseVisitor<Elem>  {
         }
 //        return super.visitLiteral(ctx);
     }
+
+
 }

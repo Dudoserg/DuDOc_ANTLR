@@ -15,7 +15,7 @@ public class Main {
                 "   int a = 2 + 7;" + "\n" +
                 "   printf(a);" + "\n" +
                 "   a = 3-1;" + "\n" +
-                "   printf(a);" + "\n" +
+                "   printf(1+2+3+4+5+6+7+8+9);" + "\n" +
                 "   int b = 2;" + "\n" +
                 "   printf(b);" + "\n" +
                 "   if (b <= 1) {" + "\n" +
